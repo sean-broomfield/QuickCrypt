@@ -3,10 +3,13 @@
 
     <br>
     <div class="container">
-    <form method="GET" class="text-center" action="{% url 'reload' %}">
-        <input type="submit" class="btn btn-success m-*-auto col-md-4" value="Update" name="">
-        {%  csrf_token %}
-    </form>
+        <form method="GET" class="text-center" action="{% url 'reload' %}">
+            <div class="alert alert-primary" role="alert">
+                This is a Django App that displays the details of the Top 75 Cryptocurrencies.
+            </div>
+            <input type="submit" class="btn btn-success m-*-auto col-md-4" value="Update" name="">
+            {%  csrf_token %}
+        </form>
     </div>
     <br>
     <div class="container">
@@ -19,8 +22,8 @@
                 <th>USD</th>
                 <th>24h Change</th>
                 <th>1h Change</th>
-{#                <th>Holdings</th>#}
-{#                <th>Value</th>#}
+                {#                <th>Holdings</th>#}
+                {#                <th>Value</th>#}
             </tr>
             </thead>
             {% for cryptocoin in cryptocoin_list %}
@@ -46,8 +49,8 @@
                     {% else %}
                         <td class="bg-success">{{ cryptocoin.changehour|floatformat:2 }}%</td>
                     {% endif %}
-{#                    <td class="form-control" type="number">0</td>#}
-{#                    <td></td>#}
+                    {#                    <td><input class="form-control" id="holdings" type="number" value=0></td>#}
+                    {#                    <td></td>#}
                 </tr>
             {% endfor %}
         </table>
