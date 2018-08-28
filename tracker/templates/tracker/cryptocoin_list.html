@@ -1,0 +1,57 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+
+    <br>
+    <div class="container">
+    <form method="GET" class="text-center" action="{% url 'reload' %}">
+        <input type="submit" class="btn btn-success m-*-auto col-md-4" value="Update" name="">
+        {%  csrf_token %}
+    </form>
+    </div>
+    <br>
+    <div class="container">
+        <table class="text-center table table-striped table-dark" style= "margin: 0 auto;">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Market Cap</th>
+                <th>USD</th>
+                <th>24h Change</th>
+                <th>1h Change</th>
+{#                <th>Holdings</th>#}
+{#                <th>Value</th>#}
+            </tr>
+            </thead>
+            {% for cryptocoin in cryptocoin_list %}
+                <tr>
+                    <td>{{ cryptocoin.rank }}</td>
+                    <td> <img src={{ cryptocoin.image }}> {{ cryptocoin.name }}</td>
+                    <td>${{ cryptocoin.cap }}</td>
+
+                    {% if cryptocoin.price < 1 %}
+                        <td>${{ cryptocoin.price|floatformat:5 }}</td>
+                    {% else %}
+                        <td>${{ cryptocoin.price|floatformat:2 }}</td>
+                    {% endif %}
+
+                    {% if cryptocoin.changeday < 0 %}
+                        <td class="bg-danger">{{ cryptocoin.changeday|floatformat:2 }}%</td>
+                    {% else %}
+                        <td class="bg-success">{{ cryptocoin.changeday|floatformat:2 }}%</td>
+                    {% endif %}
+
+                    {% if cryptocoin.changehour < 0 %}
+                        <td class="bg-danger">{{ cryptocoin.changehour|floatformat:2 }}%</td>
+                    {% else %}
+                        <td class="bg-success">{{ cryptocoin.changehour|floatformat:2 }}%</td>
+                    {% endif %}
+{#                    <td class="form-control" type="number">0</td>#}
+{#                    <td></td>#}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock %}
